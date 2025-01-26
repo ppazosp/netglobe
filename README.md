@@ -30,7 +30,7 @@ NetGlobe is a command-line tool that visualizes the foreign countries your compu
 
 Make sure you have the following installed:
 
-- Python3 with module "requests"
+- Python3 with modules "requests", "flask" and "flask-cors"
 - A modern web browser (e.g., Chrome, Firefox, Safari)
 - Access to the IPGeolocation API (API key required)
 
