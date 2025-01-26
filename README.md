@@ -2,7 +2,7 @@
 
 NetGlobe is a command-line tool that visualizes the foreign countries your computer is connected to on a 3D globe. It leverages a Python server, an HTTP server, and geolocation data to display your network connections.
 
-![image](https://github.com/user-attachments/assets/55d40f4c-6fb7-4bf9-ad02-1a22f46e3aa9)
+<img src="https://github.com/user-attachments/assets/55d40f4c-6fb7-4bf9-ad02-1a22f46e3aa9" alt="netglobe visualization on browser" width="400">
 
 ## How It Works
 
