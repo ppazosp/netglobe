@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+cd /opt/homebrew/Cellar/netglobe/1.0.0
+
+PORT_PYTHON=8000
+PORT_JS=8001
+
+if lsof -i:$PORT_PYTHON > /dev/null; then
+    echo "Error: Port $PORT_PYTHON is already in use. Exiting."
+    exit 1
+fi
+
+if lsof -i:$PORT_JS > /dev/null; then
+    echo "Error: Port $PORT_JS is already in use. Exiting."
+    exit 1
+fi
+
+echo -e "Starting local Python server on port $PORT_PYTHON..."
+./server/netglobe.py &
+PYTHON_SERVER_PID=$!
+if ! kill -0 $PYTHON_SERVER_PID > /dev/null 2>&1; then
+    echo "Error: Failed to start the Python server. Exiting."
+    exit 1
+fi
+
+sleep 1
+
+echo -e "\nStarting local HTTP Server on port $PORT_JS..."
+cd web/ || { echo "Error: Directory 'netglobe/' not found. Exiting."; kill $PYTHON_SERVER_PID; deactivate; exit 1; }
+python3 -m http.server $PORT_JS &
+JS_SERVER_PID=$!
+if ! kill -0 $JS_SERVER_PID > /dev/null 2>&1; then
+    echo "Error: Failed to start the HTTP server. Exiting."
+    kill $PYTHON_SERVER_PID
+    exit 1
+fi
+
+sleep 1
+
+echo -e "\nServers are running. Press Ctrl+C to stop."
+
+echo -e "\nOpening browser at http://127.0.0.1:$PORT_JS/index.html...\n"
+if which xdg-open > /dev/null; then
+    xdg-open "http://127.0.0.1:$PORT_JS" 
+elif which open > /dev/null; then
+    open "http://127.0.0.1:$PORT_JS/index.html"
+else
+    echo "Could not detect the browser command to open the URL. Please open it manually: http://127.0.0.1:$PORT_JS"
+fi
+
+trap "echo -e '\nStopping servers...'; kill $PYTHON_SERVER_PID $JS_SERVER_PID; exit 0" SIGINT SIGTERM
+
+wait
