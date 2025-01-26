@@ -52,6 +52,6 @@ Make sure you have the following installed:
 - **Author**: ppazosp
 - **GitHub**: [ppazosp](https://github.com/ppazosp)
 
-- **JS Globe**: [nenadV91](https://github.com/nenadV91/Threejs-globe)
+- **Mentions**: JS Code [nenadV91](https://github.com/nenadV91/Threejs-globe)
 
 ---
