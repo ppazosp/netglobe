@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-cd /opt/homebrew/Cellar/netglobe/1.0.0
-
 PORT_PYTHON=8000
 PORT_JS=8001
 
